@@ -3,7 +3,17 @@ import React from 'react'
 class Character extends React.Component {
 	render() {
 		return(
-			<p>Character</p>
+            <>
+            <div>
+			{this.props.name}
+            </div>
+            <div>
+			{this.props.title}
+            </div>
+            <div>
+			{this.props.image}
+            </div>
+            </>
 		)
 	}
 }
