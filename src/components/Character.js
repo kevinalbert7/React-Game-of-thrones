@@ -2,23 +2,22 @@ import React from 'react'
 
 class Character extends React.Component {
 	render() {
-        console.log("this.props.image:", this.props.image)
+        console.log("props favorites dans le render de Character", this.props.favorites)
 		return(
-            <>
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
+            <div className="container">
+                <div className="row ">
+                    <div className="card col-4">
                         <img src={this.props.image}/>
-                        </div>
-                        <div class="col">
-                        {this.props.title}
-                        </div>
-                        <div class="col">
-                        {this.props.name}
-                        </div>
+                        <p>{this.props.title}</p>
+                        <p>{this.props.name}</p>
+                        <button 
+                            className="btn btn-outline-secondary"
+                            onClick={this.props.favorites}
+                            >Favorite
+                        </button>
                     </div>
                 </div>
-            </>
+            </div>
 		)
 	}
 }
