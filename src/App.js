@@ -1,68 +1,40 @@
 import React from 'react'
 
-import Button from './components/Button'
-import Add from './components/Add'
-import List from './components/List'
-import Pay from './components/Pay'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import Character from './components/Character'
 
 class App extends React.Component {
   constructor () {
-    super () 
-    
+    console.log("constructor")
+    super ()
+
     this.state = {
-      activeTab: "add",
-      items: [],
+      characters: []
     }
-    
-
-    this.handleButtonClick = this.handleButtonClick.bind(this)
 
   }
 
-  handleButtonClick(str) {
-    console.log("handleButtonClick:", str)
-    this.setState({activeTab: str})
+  componentDidMount() {
+    // console.log("component did mount!")
+    fetch("https://thronesapi.com/api/v2/Characters")
+    .then(data => data.json()) // on transforme la donnée reçue en JSON 
+    .then(data => {
+      console.log("data:", data)
+      this.setState({
+        characters : data
+      })
+    })
+    .catch(error => console.error(error))
   }
 
-  addItem(name, price) {
-    this.setState({items: [...this.state.items]})
-  }
-
-  render() {
-    console.log(this.state.items)
-    return (
-      <div>
-        <div className="d-flex justify-content-center">
-          <h1>Bakery</h1>
-        </div>
-        <Button
-        text="add"
-          handleClick={this.handleButtonClick}
-        />
-         <Button
-        text="list"
-          handleClick={this.handleButtonClick}
-        />
-         <Button
-         text="pay"
-          handleClick={this.handleButtonClick}
-        />
-        <div>
-          {this.props.isSelected === "add" && <h1>Add</h1>}
-          {this.props.isSelected === "list" && <h1>List</h1>}
-          {this.props.isSelected === "pay" && <h1>Pay</h1>}
-        </div>
-        <Add
-          addItem={this.addItem.value}
-        />
-        <List
-          items
-        />
-      </div>
-    );
-  }
-
+	render() {
+    // console.log("this.state:", this.state)
+		return (
+      <>
+			<h1>Game of thrones</h1>
+      <Character/>
+      </>
+		)
+	}
 }
 
 export default App
