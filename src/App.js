@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Character from './components/Character'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends React.Component {
   constructor () {
