@@ -22,32 +22,39 @@ class App extends React.Component {
     fetch("https://thronesapi.com/api/v2/Characters")
     .then(data => data.json())
     .then(data => {
-      console.log("data:", data)
-      this.setState({
-        characters : data
-      })
+      this.setState({ characters : data })
     })
     .catch(error => console.error(error))
   }
 
   
-  handleFavoriteClick(e) {
-    // console.log("handleFavoriteClick=", handleFavoriteClick)
-    e.preventDefault()
-    this.setState({ favorites: [, ...this.state.favorites] })
+  handleFavoriteClick(index) {
+    const { fullName, title, imageUrl } = this.state.characters[index]
+    const newFavorite = {
+      fullName: fullName,
+      title: title,
+      image: imageUrl,
+      isAdd: true
+    }
+
+    this.setState({favorites: [...this.state.favorites, newFavorite]})
   }
 
 	render() {
     console.log("le state du render de App=", this.state)
+
+    const { characters } = this.state
+
 		return (
-      <div>
+      <div className="container">
         <h1>Game of thrones</h1>
-          {this.state.characters.map( character => (
+          {characters.map( character => (
             <Character 
               name={character.fullName}
               title={character.title}
               image={character.imageUrl}
-              handleFavoriteClick={this.props.Character}
+              handleFavoriteClick={this.handleFavoriteClick}
+              isFavorite={this.state.favorites.isAdd}
             />
           ))}
             <Button/>
